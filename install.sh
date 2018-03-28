@@ -5,6 +5,7 @@ VERSION="0.1"
 ERROR_STATUS=0
 LOCAL_COMMAND_DIRECTORY=~/.local/bin/
 ROOT_COMMAND_DIRECTORY=/bin/
+WORKING_DIRECTRY=$(pwd)
 ISSUE_URL="https://github.com/munisisazade/docker-helper-commands/issues"
 
 
@@ -144,3 +145,4 @@ fi
 
 $SHELL
 
+cd $WORKING_DIRECTRY
