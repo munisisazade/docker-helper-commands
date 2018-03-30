@@ -52,14 +52,14 @@ function usage {
 		echo -e "You install $(whoami) user all shels here $ROOT_COMMAND_DIRECTORY"
 	fi
 	echo -e "Usage:"
-    echo -e "$(ChangeColor blue text)  build-docker $(ChangeColor green text)Update and create docker compose up $(ChangeColor white text)"
-    echo -e "\n"
-    echo -e "$(ChangeColor blue text)  down-docker $(ChangeColor green text) Down all docker compose containers $(ChangeColor white text)"
-    echo -e "\n"
-    echo -e "$(ChangeColor blue text)  connect-docker <sh|bash> <container_name> $(ChangeColor green text) Connect available docker container with sh or bash $(ChangeColor white text)"
-    echo -e "\n"
-    echo -e "$(ChangeColor blue text)  dangling-remove-docker $(ChangeColor green text) Remove dangling images and containers $(ChangeColor white text)"
-    echo -e "\n"
+    	echo -e "$(ChangeColor blue text)  build-docker $(ChangeColor green text)Update and create docker compose up $(ChangeColor white text)"
+    	echo -e "\n"
+    	echo -e "$(ChangeColor blue text)  down-docker $(ChangeColor green text) Down all docker compose containers $(ChangeColor white text)"
+    	echo -e "\n"
+    	echo -e "$(ChangeColor blue text)  connect-docker <sh|bash> <container_name> $(ChangeColor green text) Connect available docker container with sh or bash $(ChangeColor white text)"
+    	echo -e "\n"
+    	echo -e "$(ChangeColor blue text)  dangling-remove-docker $(ChangeColor green text) Remove dangling images and containers $(ChangeColor white text)"
+    	echo -e "\n"
 	echo -e "Run $(ChangeColor blue text)create-django-app --help$(ChangeColor white text) to see all options."
 	echo -e "\n"
   	echo -e "  If you have any problems, do not hesitate to file an issue:"
@@ -107,6 +107,15 @@ function dangling_remove_docker_shell() {
 	echo "docker rm \$(docker ps -a -f status=exited -q)" >> dangling-remove-docker
 }
 
+function restart_docker_shell() {
+	touch restart-docker
+	echo "#!/bin/bash" >> restart-docker
+	echo "" >> restart-docker
+	echo "echo -e \"Remove all containers\"" >> restart-docker
+	echo "docker-compose restart -d" >> restart-docker
+	echo "" >> restart-docker
+}
+
 
 if [ "$EUID" -ne 0 ]; then
 	# If not root user
@@ -116,6 +125,7 @@ if [ "$EUID" -ne 0 ]; then
 		down_docker_shell
 		connect_docker_shell
 		dangling_remove_docker_shell
+		restart_docker_shell
 		chmod +x *
 	else
 		cd ~
@@ -127,6 +137,7 @@ if [ "$EUID" -ne 0 ]; then
 		down_docker_shell
 		connect_docker_shell
 		dangling_remove_docker_shell
+		restart_docker_shell
 		chmod +x *
 	fi
 else
@@ -136,10 +147,12 @@ else
 	down_docker_shell
 	connect_docker_shell
 	dangling_remove_docker_shell
+	restart_docker_shell
 	chmod +x build-docker
 	chmod +x down-docker
 	chmod +x connect-docker
 	chmod +x dangling-remove-docker
+	chmod +x restart-docker
 fi
 
 
