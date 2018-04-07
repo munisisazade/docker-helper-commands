@@ -113,7 +113,7 @@ function restart_docker_shell() {
 	echo "" >> restart-docker
 	echo "echo -e \"Command Created by Munis\"" >> restart-docker
 	echo "echo -e \"Restart all containers\"" >> restart-docker
-	echo "docker-compose restart -d" >> restart-docker
+	echo "docker-compose restart" >> restart-docker
 	echo "" >> restart-docker
 }
 
