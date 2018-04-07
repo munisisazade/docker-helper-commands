@@ -165,8 +165,8 @@ function restore_database_shell() {
 	echo "echo -e \"Restore Posgresql Database\"" >> restore-database-docker
 	echo "" >> restore-database-docker
 	echo "if [[ \"\$1\" && \"\$2\" ]]; then" >> restore-database-docker
-	echo "   docker exec -t \$1 pg_dumpall -c -U postgres > dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql" >> restore-database-docker
-	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \"" >> restore-database-docker
+	echo "   cat \$1 | docker exec -i \$2 psql -U postgres" >> restore-database-docker
+	echo "   echo -e \"Successfuly Restored from dump file name: \$(tput setaf 2 && tput bold)\$1 \"" >> restore-database-docker
 	echo "else" >> restore-database-docker
 	echo "   echo -e \"Please Select Dump Sql file and Container name for example \"" >> restore-database-docker
 	echo "   echo -e \"restore-database-docker dump_07-04-2018_22_29_33.sql postgres-db \"" >> restore-database-docker
