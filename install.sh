@@ -204,6 +204,8 @@ fi
 
 cd $WORKING_DIRECTRY
 
+rm -rf install.sh
+
 $SHELL
 
 
