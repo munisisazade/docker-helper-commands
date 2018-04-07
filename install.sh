@@ -117,6 +117,28 @@ function restart_docker_shell() {
 	echo "" >> restart-docker
 }
 
+function migrate_docker_shell() {
+	touch migrate-docker
+	echo "#!/bin/bash" >> migrate-docker
+	echo "" >> migrate-docker
+	echo "echo -e \"Command Created by Munis\"" >> migrate-docker
+	echo "echo -e \"Migrate django project inside \$1 container ...\"" >> migrate-docker
+	echo "" >> migrate-docker
+	echo "docker exec -it \$1 sh -c \"/venv/bin/python manage.py makemigrations --no-input && /venv/bin/python manage.py migrate --no-input\"" >> migrate-docker
+	echo "" >> migrate-docker
+}
+
+function logs_docker_shell() {
+	touch logs-docker
+	echo "#!/bin/bash" >> logs-docker
+	echo "" >> logs-docker
+	echo "echo -e \"Command Created by Munis\"" >> logs-docker
+	echo "echo -e \"Tails all logs on docker containers\"" >> logs-docker
+	echo "" >> logs-docker
+	echo "\"docker-compose logs -f\"" >> logs-docker
+	echo "" >> logs-docker
+}
+
 
 function backup_database_shell() {
 	touch backup-database-docker
@@ -164,6 +186,8 @@ if [ "$EUID" -ne 0 ]; then
 		connect_docker_shell
 		dangling_remove_docker_shell
 		restart_docker_shell
+		migrate_docker_shell
+		logs_docker_shell
 		backup_database_shell
 		restore_database_shell
 		chmod +x *
@@ -178,6 +202,8 @@ if [ "$EUID" -ne 0 ]; then
 		connect_docker_shell
 		dangling_remove_docker_shell
 		restart_docker_shell
+		migrate_docker_shell
+		logs_docker_shell
 		backup_database_shell
 		restore_database_shell
 		chmod +x *
@@ -191,6 +217,8 @@ else
 	connect_docker_shell
 	dangling_remove_docker_shell
 	restart_docker_shell
+	migrate_docker_shell
+	logs_docker_shell
 	backup_database_shell
 	restore_database_shell
 	chmod +x build-docker
@@ -198,6 +226,8 @@ else
 	chmod +x connect-docker
 	chmod +x dangling-remove-docker
 	chmod +x restart-docker
+	chmod +x migrate-docker
+	chmod +x logs-docker
 	chmod +x backup-database-docker
 	chmod +x restore-database-docker
 fi
