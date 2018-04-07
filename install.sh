@@ -185,6 +185,7 @@ if [ "$EUID" -ne 0 ]; then
 else
 	# if user is root
 	cd $ROOT_COMMAND_DIRECTORY
+	rm -rf ./*-docker
 	build_docker_shell
 	down_docker_shell
 	connect_docker_shell
