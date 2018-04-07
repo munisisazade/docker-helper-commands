@@ -149,7 +149,7 @@ function backup_database_shell() {
 	echo "" >> backup-database-docker
 	echo "if [ \"\$1\" ]; then" >> backup-database-docker
 	echo "   docker exec -t \$1 pg_dumpall -c -U postgres > dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql" >> backup-database-docker
-	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \""
+	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \"" >> backup-database-docker
 	echo "else" >> backup-database-docker
 	echo "   echo -e \"Please Select Database Container name for example \"" >> backup-database-docker
 	echo "   echo -e \"backup-database-docker postgres-db \"" >> backup-database-docker
@@ -166,7 +166,7 @@ function restore_database_shell() {
 	echo "" >> restore-database-docker
 	echo "if [[ \"\$1\" && \"\$2\" ]]; then" >> restore-database-docker
 	echo "   docker exec -t \$1 pg_dumpall -c -U postgres > dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql" >> restore-database-docker
-	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \""
+	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \"" >> restore-database-docker
 	echo "else" >> restore-database-docker
 	echo "   echo -e \"Please Select Dump Sql file and Container name for example \"" >> restore-database-docker
 	echo "   echo -e \"restore-database-docker dump_07-04-2018_22_29_33.sql postgres-db \"" >> restore-database-docker
