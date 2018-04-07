@@ -111,21 +111,61 @@ function restart_docker_shell() {
 	touch restart-docker
 	echo "#!/bin/bash" >> restart-docker
 	echo "" >> restart-docker
-	echo "echo -e \"Remove all containers\"" >> restart-docker
+	echo "echo -e \"Command Created by Munis\"" >> restart-docker
+	echo "echo -e \"Restart all containers\"" >> restart-docker
 	echo "docker-compose restart -d" >> restart-docker
 	echo "" >> restart-docker
 }
+
+
+function backup_database_shell() {
+	touch backup-database-docker
+	echo "#!/bin/bash" >> backup-database-docker
+	echo "" >> backup-database-docker
+	echo "echo -e \"Command Created by Munis\"" >> backup-database-docker
+	echo "echo -e \"Backup Posgresql Database\"" >> backup-database-docker
+	echo "" >> backup-database-docker
+	echo "if [ \"\$1\" ]; then" >> backup-database-docker
+	echo "   docker exec -t \$1 pg_dumpall -c -U postgres > dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql" >> backup-database-docker
+	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \""
+	echo "else" >> backup-database-docker
+	echo "   echo -e \"Please Select Database Container name for example \"" >> backup-database-docker
+	echo "   echo -e \"backup-database-docker postgres-db \"" >> backup-database-docker
+	echo "fi" >> backup-database-docker
+	echo "" >> backup-database-docker
+}
+
+function restore_database_shell() {
+	touch restore-database-docker
+	echo "#!/bin/bash" >> restore-database-docker
+	echo "" >> restore-database-docker
+	echo "echo -e \"Command Created by Munis\"" >> restore-database-docker
+	echo "echo -e \"Restore Posgresql Database\"" >> restore-database-docker
+	echo "" >> restore-database-docker
+	echo "if [[ \"\$1\" && \"\$2\" ]]; then" >> restore-database-docker
+	echo "   docker exec -t \$1 pg_dumpall -c -U postgres > dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql" >> restore-database-docker
+	echo "   echo -e \"Successfuly created Dump file name: \$(tput setaf 2 && tput bold)dump_\`date +%d-%m-%Y\"_\"%H_%M_%S\`.sql  \""
+	echo "else" >> restore-database-docker
+	echo "   echo -e \"Please Select Dump Sql file and Container name for example \"" >> restore-database-docker
+	echo "   echo -e \"restore-database-docker dump_07-04-2018_22_29_33.sql postgres-db \"" >> restore-database-docker
+	echo "fi" >> restore-database-docker
+	echo "" >> restore-database-docker
+}
+
 
 
 if [ "$EUID" -ne 0 ]; then
 	# If not root user
 	if [ -d $LOCAL_COMMAND_DIRECTORY ]; then
 		cd $LOCAL_COMMAND_DIRECTORY
+		rm -rf ./*-docker
 		build_docker_shell
 		down_docker_shell
 		connect_docker_shell
 		dangling_remove_docker_shell
 		restart_docker_shell
+		backup_database_shell
+		restore_database_shell
 		chmod +x *
 	else
 		cd ~
@@ -138,6 +178,8 @@ if [ "$EUID" -ne 0 ]; then
 		connect_docker_shell
 		dangling_remove_docker_shell
 		restart_docker_shell
+		backup_database_shell
+		restore_database_shell
 		chmod +x *
 	fi
 else
@@ -148,14 +190,19 @@ else
 	connect_docker_shell
 	dangling_remove_docker_shell
 	restart_docker_shell
+	backup_database_shell
+	restore_database_shell
 	chmod +x build-docker
 	chmod +x down-docker
 	chmod +x connect-docker
 	chmod +x dangling-remove-docker
 	chmod +x restart-docker
+	chmod +x backup-database-docker
+	chmod +x restore-database-docker
 fi
 
+cd $WORKING_DIRECTRY
 
 $SHELL
 
-cd $WORKING_DIRECTRY
+
