@@ -124,7 +124,7 @@ function migrate_docker_shell() {
 	echo "echo -e \"Command Created by Munis\"" >> migrate-docker
 	echo "echo -e \"Migrate django project inside \$1 container ...\"" >> migrate-docker
 	echo "" >> migrate-docker
-	echo "docker exec -it \$1 sh -c \"/venv/bin/python manage.py makemigrations --no-input && /venv/bin/python manage.py migrate --no-input\"" >> migrate-docker
+	echo "docker exec -it \$1 sh -c \"/venv/bin/python manage.py migrate\"" >> migrate-docker
 	echo "" >> migrate-docker
 }
 
