@@ -1,10 +1,16 @@
 #!/bin/bash
 # Author Munis Isazade Django developer
 
-VERSION="0.1"
+VERSION="0.2"
 ERROR_STATUS=0
-LOCAL_COMMAND_DIRECTORY=~/.local/bin/
-ROOT_COMMAND_DIRECTORY=/bin/
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	# Detect Operation system is Macbook pro OSX
+	LOCAL_COMMAND_DIRECTORY=/usr/local/bin/
+	ROOT_COMMAND_DIRECTORY=/usr/local/bin/
+else
+	LOCAL_COMMAND_DIRECTORY=~/.local/bin/
+	ROOT_COMMAND_DIRECTORY=/bin/
+fi
 WORKING_DIRECTRY=$(pwd)
 ISSUE_URL="https://github.com/munisisazade/docker-helper-commands/issues"
 
@@ -236,6 +242,11 @@ cd $WORKING_DIRECTRY
 
 rm -rf install.sh
 
-$SHELL
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	# Detect Operation system is Macbook pro OSX
+	echo -e "Successfuly installed"
+else
+	$SHELL
+fi
 
 
