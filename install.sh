@@ -238,6 +238,7 @@ else
 	chmod +x restore-database-docker
 fi
 
+
 cd $WORKING_DIRECTRY
 
 rm -rf install.sh
