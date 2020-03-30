@@ -25,10 +25,7 @@ migrate-docker
 logs-docker
 backup-database-docker
 restore-database-docker
-
-
 ```
-
 
 ### Usage ###
 
@@ -50,12 +47,19 @@ restart-docker
 This comand restarting multi-containers in the given directory.
 
 migrate-docker
+The comand useful for django projects in case you have migration file and needs to migrated to DB.
+ex: migrate-docker container_name_or_id
+
+
 
 logs-docker
 This comand tailing logs of multi-containers in the given directory.
 
 backup-database-docker
+Taking backup file of running Postgres container.
+
 
 restore-database-docker
+Restoring runnig postgres container.
 
 ```
