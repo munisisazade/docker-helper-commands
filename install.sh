@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author Munis Isazade Django developer
 
-VERSION="0.2"
+VERSION="0.3"
 ERROR_STATUS=0
 #if [[ "$OSTYPE" == "darwin"* ]]; then
 	# Detect Operation system is Macbook pro OSX
