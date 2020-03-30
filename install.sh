@@ -106,44 +106,12 @@ function connect_docker_shell() {
 function dangling_remove_docker_shell() {
 	touch dangling-remove-docker
 	echo "#!/bin/bash" >> dangling-remove-docker
-	# echo "echo -e \"Remove all exited containers\"" >> dangling-remove-docker
-	# echo "echo -e \"Remove all exited images\"" >> dangling-remove-docker
-	
-	procs=$(docker ps -a -f status=exited -q)
-	if [ "${procs}" ]; then
-		docker rm ${procs}
-	else
-		echo "No processes to purge"
-	fi
-
-
-
-	# echo -e  "\nexited=$(docker ps -a -f status=exited -q)" >>dangling-remove-docker
-	# # echo "echo  ${exited}" >> dangling-remove-docker
-	# echo "if [ "${exited}" ]; then" >> dangling-remove-docker
-	# echo "   docker rm  ${exited}" >> dangling-remove-docker
-	# echo "else" >>dangling-remove-docker
-	# echo "   echo -e  \"No exited containers to remove\"" >> dangling-remove-docker
-	# echo "fi" >> dangling-remove-docker
-	# # echo "" >> dangling-remove-docker
-
-
-	# echo "echo -e  \"danglingimages=$(docker images -f dangling=true -q)"\" >>dangling-remove-docker
-	# echo "echo -e \"danglingimages"${danglingimages}\" >> dangling-remove-docker
-	# echo "if [ ${danglingimages} ]; then" >> dangling-remove-docker
-	# echo "   docker rmi  ${danglingimages}" >> dangling-remove-docker
-	# echo "else" >>dangling-remove-docker
-	# echo "   echo -e  \"No dangling images to remove\"" >> dangling-remove-docker
-	# echo "fi" >> dangling-remove-docker
-	# echo "" >> dangling-remove-docker
-	# echo "docker rm \$(docker ps -a -f status=exited -q)" >> dangling-remove-docker
-
-
-	# echo "echo -e \"Remove all exited images\"" >> dangling-remove-docker
-	# echo "docker rmi \$(docker images -f dangling=true -q)" >> dangling-remove-docker
-	# echo "" >> dangling-remove-docker
-	# echo "echo -e \"Remove all exited containers\"" >> dangling-remove-docker
-	# echo "docker rm \$(docker ps -a -f status=exited -q)" >> dangling-remove-docker
+	echo "" >> dangling-remove-docker
+	echo "echo -e \"Remove all exited images\"" >> dangling-remove-docker
+	echo "docker rmi \$(docker images -f dangling=true -q)" >> dangling-remove-docker
+	echo "" >> dangling-remove-docker
+	echo "echo -e \"Remove all exited containers\"" >> dangling-remove-docker
+	echo "docker rm \$(docker ps -a -f status=exited -q)" >> dangling-remove-docker
 }
 
 function restart_docker_shell() {
@@ -269,14 +237,13 @@ else
 	chmod +x logs-docker
 	chmod +x backup-database-docker
 	chmod +x restore-database-docker
-	echo "test happened"
 
 fi
 
 
 cd $WORKING_DIRECTRY
 
-# rm -rf install.sh
+rm -rf install.sh
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	# Detect Operation system is Macbook pro OSX
