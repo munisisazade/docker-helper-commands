@@ -10,6 +10,8 @@
 
 - In order to install comands you require to have sudo privileged. if below comand does not work try with sudo.
 
+Use [curl](https://curl.haxx.se/) to install comands.
+
 ```
 $ curl -LO https://raw.githubusercontent.com/munisisazade/docker-helper-commands/master/install.sh && bash install.sh
 ```
@@ -50,8 +52,6 @@ migrate-docker
 The comand useful for django projects in case you have migration file and needs to migrated to DB.
 ex: migrate-docker container_name_or_id
 
-
-
 logs-docker
 This comand tailing logs of multi-containers in the given directory.
 
@@ -63,3 +63,11 @@ restore-database-docker
 Restoring runnig postgres container.
 
 ```
+
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+
+## License
+[MIT](https://github.com/munisisazade/docker-helper-commands/blob/master/LICENSE/)
