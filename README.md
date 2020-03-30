@@ -33,7 +33,7 @@ restore-database-docker
 
 ```bash
 build-docker
-Building multi-containers. Comand should given where your compose file exist. 
+Building multi-containers. Comand should given where your docker-compose file exist. 
 
 down-docker
 Stoping runnig multi-containers in the directory.
