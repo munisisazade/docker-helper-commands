@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author Munis Isazade Django developer
 
-VERSION="0.2"
+VERSION="0.3"
 ERROR_STATUS=0
 #if [[ "$OSTYPE" == "darwin"* ]]; then
 	# Detect Operation system is Macbook pro OSX
@@ -102,6 +102,7 @@ function connect_docker_shell() {
 	echo "docker exec -it \$2 \$1" >> connect-docker
 }
 
+
 function dangling_remove_docker_shell() {
 	touch dangling-remove-docker
 	echo "#!/bin/bash" >> dangling-remove-docker
@@ -141,7 +142,7 @@ function logs_docker_shell() {
 	echo "echo -e \"Command Created by Munis\"" >> logs-docker
 	echo "echo -e \"Tails all logs on docker containers\"" >> logs-docker
 	echo "" >> logs-docker
-	echo "\"docker-compose logs -f\"" >> logs-docker
+	echo "docker-compose logs -f" >> logs-docker
 	echo "" >> logs-docker
 }
 
@@ -236,6 +237,7 @@ else
 	chmod +x logs-docker
 	chmod +x backup-database-docker
 	chmod +x restore-database-docker
+
 fi
 
 
