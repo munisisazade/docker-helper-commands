@@ -86,7 +86,7 @@ function build_docker_shell() {
 function down_docker_shell() {
 	touch down-docker
 	echo "#!/bin/bash" >> down-docker
-	echo "" >> build-docker
+	echo "" >> down-docker
 	echo "echo -e \"Command Created by Munis\"" >> down-docker
 	echo "echo -e \"Down all containers .. width docker-composefile\"" >> down-docker
 	echo "" >> down-docker
